@@ -1,5 +1,5 @@
 const { Asset } = require('parcel-bundler');
-
+const glsl = require('glslify')
 module.exports = class GLSLAsset extends Asset {
 
   constructor(name, pkg, options) {
@@ -8,7 +8,9 @@ module.exports = class GLSLAsset extends Asset {
   }
 
   generate() {
-    return { js: `module.exports = \`${ this.contents }\`` };
+    return { js: `module.exports = \`${ glsl.compile(this.contents,{
+        basedir:process.cwd()
+        }) }\`` };
   }
 
 };
